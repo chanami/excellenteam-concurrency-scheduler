@@ -6,17 +6,18 @@
 #include "shared_ptr.h"
 #include "ITask.h"
 
-typedef std::pair<shared_ptr<ITask>,Time > pairs;
+typedef std::pair<shared_ptr<ITask>,Time > task_pair;
 
-class scheduler
+class Scheduler
 {
 public:
-    scheduler() /*define heap*/;
-    pairs get_next_pair();
+    Scheduler(ITask *tasks) /*define heap*/;
     void run_tasks();
 
 private:
-    vector<paris> m_heap;
+
+    task_pair & get_next_pair();
+    std::vector<task_pair> m_heap;
 
 };
 

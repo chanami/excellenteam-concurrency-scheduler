@@ -1,11 +1,12 @@
 #include "scheduler.h"
 
-scheduler::scheduler(Itask *tasks)
+Scheduler::Scheduler(ITask *tasks)
 {
-    for(Itask * ptr = tasks; ptr ; ++ptr)
+    for(ITask * ptr = tasks; ptr ; ++ptr)
     {
-        m_heap.push_back(std::make_pair(shared_ptr<Itask>(ptr),Time(clock()) + ptr->getNextRunPeriod()));
+        m_heap.push_back(std::make_pair(shared_ptr<ITask>(ptr),Time(clock()) + ptr->getNextRunPeriod()));
     }
     std::make_heap(m_heap.begin(),m_heap.end());
+
 }
 
