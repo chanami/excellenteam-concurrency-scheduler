@@ -2,23 +2,28 @@
 #define EXCELLENTEAM_ELLA_CONCURRENCY_SCHEDULER_CHANAMI_SCHEDULER_H
 
 #include <vector>
-#include "time.h"
-#include "shared_ptr.h"
 #include "ITask.h"
+#include "shared_ptr.h"
+#include "time.h"
 
-typedef std::pair<shared_ptr<ITask>,Time > task_pair;
+typedef std::pair<shared_ptr<ITask>, Time> STask;
 
-class Scheduler
-{
+class Scheduler{
 public:
-    Scheduler(ITask *tasks) /*define heap*/;
-    void run_tasks();
+
+    Scheduler();
+
+    void appendTask(ITask* task);
+    void run();
+    void next_task_period_handler(STask * temp);
 
 private:
 
-    task_pair & get_next_pair();
-    std::vector<task_pair> m_heap;
+    STask * getNextTask();
 
+    std::vector<STask> m_tasksHeap;
 };
 
-#endif //EXCELLENTEAM_ELLA_CONCURRENCY_SCHEDULER_CHANAMI_SCHEDULER_H
+bool operator < (STask p1, STask p2);
+
+#endif

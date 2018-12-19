@@ -1,53 +1,57 @@
 #ifndef EXCELLENTEAM_ELLA_CONCURRENCY_SCHEDULER_CHANAMI_ITASK_H
 #define EXCELLENTEAM_ELLA_CONCURRENCY_SCHEDULER_CHANAMI_ITASK_H
 
+#include <stdlib.h>
+#include <iostream>
+
 class ITask
 {
 public:
-
-    ITask(unsigned long);
+    virtual ~ITask();
     virtual void run() = 0;
+    virtual unsigned long another_run() = 0;
     virtual unsigned long getNextRunPeriod() = 0; // in milliseconds
-
 private:
-
-    unsigned long task_period;
+    unsigned long m_timeToNextRun;
 };
 
-
-class ITask_printer:public ITask
+class Printer : public ITask
 {
 public:
-    ITask_printer(unsigned long);
+    Printer(unsigned long);
+    ~Printer();
     void run();
-    unsigned long getNextRunPeriod() = 0; // in milliseconds
 
+    unsigned long another_run();
+    unsigned long getNextRunPeriod(); // in milliseconds
 private:
-
-    unsigned long task_period;
+    unsigned long m_timeToNextRun;
 };
 
-class ITask_Anti_Virus:public ITask
+class AntiVirus : public ITask
 {
 public:
-    ITask_Anti_Virus(unsigned long);
+    AntiVirus(unsigned long);
+    ~AntiVirus();
     void run();
-    unsigned long getNextRunPeriod() = 0; // in milliseconds
 
+    unsigned long another_run();
+    unsigned long getNextRunPeriod(); // in milliseconds
 private:
-
-    unsigned long task_period;
+    unsigned long m_timeToNextRun;
 };
 
-class ITask_Timer:public ITask
+class ConnectionTest :public ITask
 {
 public:
-    ITask_Timer(unsigned long);
+    ConnectionTest(unsigned long);
+    ~ConnectionTest();
     void run();
-    unsigned long getNextRunPeriod() = 0; // in milliseconds
 
+    unsigned long another_run();
+    unsigned long getNextRunPeriod(); // in milliseconds
 private:
-
-    unsigned long task_period;
+    unsigned long m_timeToNextRun;
 };
+
 #endif //EXCELLENTEAM_ELLA_CONCURRENCY_SCHEDULER_CHANAMI_ITASK_H
